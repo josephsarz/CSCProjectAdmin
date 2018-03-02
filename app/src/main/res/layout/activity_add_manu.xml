@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context="com.codegene.femicodes.cscprojectadmin.AddManufacturer">
+
+        <EditText
+            android:id="@+id/mname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="manufacturer name" />
+
+    <EditText
+        android:id="@+id/maddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="address"/>
+
+    <EditText
+        android:id="@+id/mcountry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="country"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="email"
+        android:inputType="textEmailAddress"
+        android:id="@+id/memail"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="phone number"
+        android:inputType="phone"
+        android:id="@+id/mphone"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="website"
+        android:inputType="textWebEmailAddress"
+        android:id="@+id/mwebsite"/>
+
+    <Button
+        android:id="@+id/add_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:background="@color/colorPrimary"
+        android:textColor="#fff"/>
+
+
+</LinearLayout>

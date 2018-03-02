@@ -1,0 +1,152 @@
+{
+  "project_info": {
+    "project_number": "1090626227685",
+    "firebase_url": "https://nafdac-1eb3a.firebaseio.com",
+    "project_id": "nafdac-1eb3a",
+    "storage_bucket": "nafdac-1eb3a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090626227685:android:d6cdd833a4e68420",
+        "android_client_info": {
+          "package_name": "com.aghedo.barcodescanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1090626227685-q161v4hcd8osidcjul6ouumshmbq95l3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aghedo.barcodescanner",
+            "certificate_hash": "1fd4a1d8b0988219078a65f48c815fc9c1fc10c3"
+          }
+        },
+        {
+          "client_id": "1090626227685-02j67ti5971cr7fp5pp5fakecr1qb5j9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJAA_jLAgcVATBTqxD4Zeuc0m1OVQSggo"
+        },
+        {
+          "current_key": "AIzaSyBktIJLfVFgWUfsHMPxcvurU7YJszvmwMM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1090626227685-02j67ti5971cr7fp5pp5fakecr1qb5j9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090626227685:android:66112ee27aae231a",
+        "android_client_info": {
+          "package_name": "com.codegene.femicodes.cscproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1090626227685-g4ohj6e0sremcckcilub72k4khu522su.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codegene.femicodes.cscproject",
+            "certificate_hash": "29686138a768b75e7dec7cc076471b40fa509f1c"
+          }
+        },
+        {
+          "client_id": "1090626227685-02j67ti5971cr7fp5pp5fakecr1qb5j9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJAA_jLAgcVATBTqxD4Zeuc0m1OVQSggo"
+        },
+        {
+          "current_key": "AIzaSyBktIJLfVFgWUfsHMPxcvurU7YJszvmwMM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1090626227685-02j67ti5971cr7fp5pp5fakecr1qb5j9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090626227685:android:86900ca24f421c0c",
+        "android_client_info": {
+          "package_name": "com.codegene.femicodes.cscprojectadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1090626227685-2d4qc4fbqk4b12d88fgloq85ch5e31uk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codegene.femicodes.cscprojectadmin",
+            "certificate_hash": "29686138a768b75e7dec7cc076471b40fa509f1c"
+          }
+        },
+        {
+          "client_id": "1090626227685-02j67ti5971cr7fp5pp5fakecr1qb5j9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJAA_jLAgcVATBTqxD4Zeuc0m1OVQSggo"
+        },
+        {
+          "current_key": "AIzaSyBktIJLfVFgWUfsHMPxcvurU7YJszvmwMM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1090626227685-02j67ti5971cr7fp5pp5fakecr1qb5j9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
