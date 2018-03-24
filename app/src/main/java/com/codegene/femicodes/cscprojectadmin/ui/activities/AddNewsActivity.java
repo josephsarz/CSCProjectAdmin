@@ -1,5 +1,6 @@
-package com.codegene.femicodes.cscprojectadmin;
+package com.codegene.femicodes.cscprojectadmin.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,12 +13,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.codegene.femicodes.cscprojectadmin.R;
 import com.codegene.femicodes.cscprojectadmin.models.Post;
+import com.codegene.femicodes.cscprojectadmin.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -37,7 +38,10 @@ public class AddNewsActivity extends AppCompatActivity {
     private Button postBtn;
     private StorageReference storage;
     private DatabaseReference databaseRef;
-    final static String REFERENCE_CHILD = "news";
+
+    public static Intent getStartedIntent(Context context){
+        return new Intent(context, AddNewsActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +50,12 @@ public class AddNewsActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Add News");
 
-
         // initializing objects
         postBtn = findViewById(R.id.postBtn);
         textContent = findViewById(R.id.textDesc);
         textTitle = findViewById(R.id.textTitle);
         storage = FirebaseStorage.getInstance().getReference();
-        databaseRef = FirebaseDatabase.getInstance().getReference().child(REFERENCE_CHILD);
+        databaseRef = FirebaseDatabase.getInstance().getReference().child(Constants.REFERENCE_CHILD_NEWS);
         imageBtn = findViewById(R.id.imageBtn);
         //picking image from gallery
         imageBtn.setOnClickListener(new View.OnClickListener() {

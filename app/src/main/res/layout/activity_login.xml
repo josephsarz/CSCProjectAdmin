@@ -6,7 +6,7 @@
     android:padding="16dp"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.codegene.femicodes.cscprojectadmin.LoginActivity">
+    tools:context="com.codegene.femicodes.cscprojectadmin.ui.activities.LoginActivity">
 
     <ImageView
         android:layout_gravity="center"

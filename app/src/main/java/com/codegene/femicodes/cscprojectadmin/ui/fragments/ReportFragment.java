@@ -1,4 +1,4 @@
-package com.codegene.femicodes.cscprojectadmin.fragments;
+package com.codegene.femicodes.cscprojectadmin.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.codegene.femicodes.cscprojectadmin.R;
 import com.codegene.femicodes.cscprojectadmin.models.Report;
+import com.codegene.femicodes.cscprojectadmin.utils.Constants;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -22,7 +23,6 @@ public class ReportFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private DatabaseReference mDatabase;
-    final static String REFERENCE_CHILD = "reports";
 
     @Nullable
     @Override
@@ -33,7 +33,7 @@ public class ReportFragment extends Fragment {
         recyclerView = view.findViewById(R.id.report_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child(REFERENCE_CHILD);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(Constants.REFERENCE_CHILD_REPORTS);
 
         return view;
     }

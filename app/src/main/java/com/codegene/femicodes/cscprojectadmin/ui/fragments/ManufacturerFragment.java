@@ -1,4 +1,4 @@
-package com.codegene.femicodes.cscprojectadmin.fragments;
+package com.codegene.femicodes.cscprojectadmin.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.codegene.femicodes.cscprojectadmin.AddManufacturer;
-import com.codegene.femicodes.cscprojectadmin.ManufacturerDetailsActivity;
+import com.codegene.femicodes.cscprojectadmin.ui.activities.AddManufacturer;
+import com.codegene.femicodes.cscprojectadmin.ui.activities.AddNewsActivity;
+import com.codegene.femicodes.cscprojectadmin.ui.activities.ManufacturerDetailsActivity;
 import com.codegene.femicodes.cscprojectadmin.R;
 import com.codegene.femicodes.cscprojectadmin.models.Manufacturer;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -42,7 +43,9 @@ public class ManufacturerFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), AddManufacturer.class));
+                Intent intent = AddManufacturer.getStartedIntent(getContext());
+                startActivity(intent);
+                //startActivity(new Intent(getActivity(), AddManufacturer.class));
             }
         });
 

@@ -1,5 +1,6 @@
-package com.codegene.femicodes.cscprojectadmin;
+package com.codegene.femicodes.cscprojectadmin.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,8 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.codegene.femicodes.cscprojectadmin.fragments.ManufacturerFragment;
+import com.codegene.femicodes.cscprojectadmin.R;
 import com.codegene.femicodes.cscprojectadmin.models.Manufacturer;
+import com.codegene.femicodes.cscprojectadmin.utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +23,6 @@ public class AddManufacturer extends AppCompatActivity {
 
     FirebaseDatabase mReportDatabase;
     DatabaseReference mManufacturerDatabaseReference;
-    final static String REFERENCE_CHILD = "manufacturers";
 
      EditText mName;
     EditText mAddress;
@@ -31,6 +32,10 @@ public class AddManufacturer extends AppCompatActivity {
     EditText mWebsite;
     private Button mAddButton;
 
+    public static Intent getStartedIntent(Context context){
+        return new Intent(context, AddManufacturer.class);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +44,7 @@ public class AddManufacturer extends AppCompatActivity {
         getSupportActionBar().setTitle("Add Manufacturer");
 
         mReportDatabase = FirebaseDatabase.getInstance();
-        mManufacturerDatabaseReference = mReportDatabase.getReference(REFERENCE_CHILD);
+        mManufacturerDatabaseReference = mReportDatabase.getReference(Constants.REFERENCE_CHILD_MANUFACTURER);
 
         mName = findViewById(R.id.mname);
         mAddress = findViewById(R.id.maddress);

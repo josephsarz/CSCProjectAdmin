@@ -1,6 +1,6 @@
-package com.codegene.femicodes.cscprojectadmin;
+package com.codegene.femicodes.cscprojectadmin.ui.activities;
 
-import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -11,24 +11,19 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.codegene.femicodes.cscprojectadmin.utils.Constants;
+import com.codegene.femicodes.cscprojectadmin.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -38,8 +33,6 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class AddProductActivity extends AppCompatActivity {
@@ -56,6 +49,10 @@ public class AddProductActivity extends AppCompatActivity {
 
     String productType = "";
     boolean generate = true;
+
+    public static Intent getStartedIntent(Context context){
+        return new Intent(context, AddProductActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

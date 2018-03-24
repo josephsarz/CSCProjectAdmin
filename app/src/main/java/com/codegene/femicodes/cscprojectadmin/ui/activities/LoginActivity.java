@@ -1,19 +1,19 @@
-package com.codegene.femicodes.cscprojectadmin;
+package com.codegene.femicodes.cscprojectadmin.ui.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.codegene.femicodes.cscprojectadmin.R;
+import com.codegene.femicodes.cscprojectadmin.utils.CommonUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -32,6 +32,9 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth.AuthStateListener firebaseAuthListener;
 
 
+    public static Intent getStartedIntent(Context context){
+        return new Intent(context, LoginActivity.class);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +65,11 @@ public class LoginActivity extends AppCompatActivity {
                 final String email = mEmailAdminET.getText().toString().trim();
                 final String password = mPasswordAdminET.getText().toString().trim();
                 if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-                    SignInUser(email,password);
+                    if(!CommonUtils.isEmailValid(email)) {
+                        Toast.makeText(LoginActivity.this, "enter valid email", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    SignInUser(email, password);
                 }else{
                     Toast.makeText(getApplicationContext(), "All fields are required", Toast.LENGTH_SHORT).show();
                 }
@@ -85,7 +92,8 @@ public class LoginActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(getApplicationContext(), "signInWithEmail:success", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            Intent intent = MainActivity.getStartedIntent(getApplicationContext());
+                            startActivity(intent);
                             finish();
 
                         } else {

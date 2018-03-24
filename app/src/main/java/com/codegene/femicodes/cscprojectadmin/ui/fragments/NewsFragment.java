@@ -1,4 +1,4 @@
-package com.codegene.femicodes.cscprojectadmin.fragments;
+package com.codegene.femicodes.cscprojectadmin.ui.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,39 +13,39 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.codegene.femicodes.cscprojectadmin.AddProductActivity;
+import com.codegene.femicodes.cscprojectadmin.ui.activities.AddNewsActivity;
 import com.codegene.femicodes.cscprojectadmin.R;
-import com.codegene.femicodes.cscprojectadmin.models.Product;
+import com.codegene.femicodes.cscprojectadmin.models.Post;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-public class ProductFragment extends Fragment {
+public class NewsFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private DatabaseReference mDatabase;
-    final static String REFERENCE_CHILD = "products";
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_product, container, false);
+        View view = inflater.inflate(R.layout.fragment_news, container, false);
 
         //initialize recyclerview and FIrebase objects
-        recyclerView = view.findViewById(R.id.product_recyclerview);
+        recyclerView = (RecyclerView) view.findViewById(R.id.news_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child(REFERENCE_CHILD);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("news");
 
 
-        FloatingActionButton fab =  view.findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), AddProductActivity.class));
+                Intent intent = AddNewsActivity.getStartedIntent(getContext());
+                startActivity(intent);
+                //startActivity(new Intent(getContext(), AddNewsActivity.class));
             }
         });
 
@@ -55,30 +55,28 @@ public class ProductFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Products");
+        getActivity().setTitle("News");
     }
 
 
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseRecyclerAdapter<Product, ProductViewHolder> FBRA = new FirebaseRecyclerAdapter<Product, ProductViewHolder>(
-                Product.class,
-                R.layout.item_product,
-                ProductViewHolder.class,
+        FirebaseRecyclerAdapter<Post, NewsViewHolder> FBRA = new FirebaseRecyclerAdapter<Post, NewsViewHolder>(
+                Post.class,
+                R.layout.item_news,
+                NewsViewHolder.class,
                 mDatabase
         ) {
             @Override
-            protected void populateViewHolder(ProductViewHolder viewHolder, Product model, final int position) {
-                final String product_key = getRef(position).getKey();
-                viewHolder.setProductName(model.getProductName());
-               viewHolder.setNafdacNumber(model.getNafdacNumber());
+            protected void populateViewHolder(NewsViewHolder viewHolder, Post model, int position) {
+                final String post_key = getRef(position).getKey().toString();
+                viewHolder.setTitle(model.getTitle());
+                viewHolder.setDesc(model.getContent());
                 viewHolder.setImageUrl(getContext(), model.getImageUrl());
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
-                        Toast.makeText(getContext(), product_key, Toast.LENGTH_LONG).show();
 
                     }
                 });
@@ -87,28 +85,27 @@ public class ProductFragment extends Fragment {
         recyclerView.setAdapter(FBRA);
     }
 
-    public static class ProductViewHolder extends RecyclerView.ViewHolder {
+    public static class NewsViewHolder extends RecyclerView.ViewHolder {
         View mView;
 
-        public ProductViewHolder(View itemView) {
+        public NewsViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
         }
 
-        void setProductName(String productName) {
-            TextView product_name = mView.findViewById(R.id.product_name_tv);
-            product_name.setText(productName);
+        public void setTitle(String title) {
+            TextView post_title = mView.findViewById(R.id.post_title_txtview);
+            post_title.setText(title);
         }
 
-        public void setNafdacNumber(String nafdacNumber) {
-            TextView nafdac_number = mView.findViewById(R.id.product_number_tv);
-            nafdac_number.setText(nafdacNumber);
+        public void setDesc(String desc) {
+            TextView post_desc = mView.findViewById(R.id.post_desc_txtview);
+            post_desc.setText(desc);
         }
 
-
-        void setImageUrl(Context ctx, String imageUrl) {
-            ImageView product_image = mView.findViewById(R.id.product_image_tv);
-            Picasso.with(ctx).load(imageUrl).into(product_image);
+        public void setImageUrl(Context ctx, String imageUrl) {
+            ImageView post_image = mView.findViewById(R.id.post_image);
+            Picasso.with(ctx).load(imageUrl).into(post_image);
         }
     }
 }

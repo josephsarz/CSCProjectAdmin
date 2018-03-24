@@ -1,5 +1,6 @@
-package com.codegene.femicodes.cscprojectadmin;
+package com.codegene.femicodes.cscprojectadmin.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,7 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.codegene.femicodes.cscprojectadmin.fragments.ManufacturerFragment;
+import com.codegene.femicodes.cscprojectadmin.R;
+import com.codegene.femicodes.cscprojectadmin.ui.fragments.ManufacturerFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +26,11 @@ public class ManufacturerDetailsActivity extends AppCompatActivity {
     String post_key = null;
     private DatabaseReference mDatabase;
     private Button deleteBtn, updateBtn;
+
+
+    public static Intent getStartedIntent(Context context){
+        return new Intent(context, ManufacturerDetailsActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,5 +1,6 @@
-package com.codegene.femicodes.cscprojectadmin;
+package com.codegene.femicodes.cscprojectadmin.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,12 +16,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.codegene.femicodes.cscprojectadmin.fragments.ManufacturerFragment;
-import com.codegene.femicodes.cscprojectadmin.fragments.NewsFragment;
-import com.codegene.femicodes.cscprojectadmin.fragments.ProductFragment;
-import com.codegene.femicodes.cscprojectadmin.fragments.ReportFragment;
+import com.codegene.femicodes.cscprojectadmin.R;
+import com.codegene.femicodes.cscprojectadmin.ui.fragments.ManufacturerFragment;
+import com.codegene.femicodes.cscprojectadmin.ui.fragments.NewsFragment;
+import com.codegene.femicodes.cscprojectadmin.ui.fragments.ProductFragment;
+import com.codegene.femicodes.cscprojectadmin.ui.fragments.ReportFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -30,6 +31,11 @@ public class MainActivity extends AppCompatActivity
     TextView mUserId, mEmail;
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener firebaseAuthListener;
+
+
+     public static Intent getStartedIntent(Context context){
+        return new Intent(context, AddManufacturer.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +74,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-        displaySelectedScreen(R.id.nav_manufacturers);
+        displaySelectedScreen(R.id.nav_products);
     }
 
 

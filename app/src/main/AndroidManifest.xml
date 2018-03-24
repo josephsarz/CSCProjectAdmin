@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -23,16 +23,16 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".AddManufacturer" />
+        <activity android:name=".ui.activities.AddManufacturer" />
         <activity
-            android:name=".ManufacturerDetailsActivity"
+            android:name=".ui.activities.ManufacturerDetailsActivity"
             android:label="@string/title_activity_details"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".AddProductActivity" />
+        <activity android:name=".ui.activities.AddProductActivity" />
 
-        <activity android:name=".AddNewsActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".ui.activities.AddNewsActivity" />
+        <activity android:name=".ui.activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
