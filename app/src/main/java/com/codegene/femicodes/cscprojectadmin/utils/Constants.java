@@ -13,7 +13,6 @@ public class Constants {
 
     public static final String REFERENCE_CHILD_PRODUCTS = "products";
 
-
     public final static String REFERENCE_CHILD_MANUFACTURER = "manufacturers";
 
 }

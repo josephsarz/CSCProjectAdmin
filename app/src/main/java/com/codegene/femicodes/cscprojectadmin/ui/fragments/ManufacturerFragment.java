@@ -11,13 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.codegene.femicodes.cscprojectadmin.ui.activities.AddManufacturer;
-import com.codegene.femicodes.cscprojectadmin.ui.activities.AddNewsActivity;
-import com.codegene.femicodes.cscprojectadmin.ui.activities.ManufacturerDetailsActivity;
 import com.codegene.femicodes.cscprojectadmin.R;
 import com.codegene.femicodes.cscprojectadmin.models.Manufacturer;
+import com.codegene.femicodes.cscprojectadmin.ui.activities.AddManufacturer;
+import com.codegene.femicodes.cscprojectadmin.ui.activities.ManufacturerDetailsActivity;
+import com.codegene.femicodes.cscprojectadmin.utils.Constants;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -34,12 +33,12 @@ public class ManufacturerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_manufacturer, container, false);
 
         //initialize recyclerview and FIrebase objects
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("manufacturers");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(Constants.REFERENCE_CHILD_MANUFACTURER);
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,16 +70,16 @@ public class ManufacturerFragment extends Fragment {
         ) {
             @Override
             protected void populateViewHolder(BlogzoneViewHolder viewHolder, Manufacturer model, int position) {
-                final String post_key = getRef(position).getKey();
+                final String manufacturer_key = getRef(position).getKey();
 
                 viewHolder.setName(model.getName());
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent singleActivity = new Intent(getContext(), ManufacturerDetailsActivity.class);
-                        singleActivity.putExtra("PostID", post_key);
+                        singleActivity.putExtra("ManufacturerID", manufacturer_key);
                         startActivity(singleActivity);
-                        Toast.makeText(getContext(), post_key, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getContext(), post_key, Toast.LENGTH_LONG).show();
                     }
                 });
             }

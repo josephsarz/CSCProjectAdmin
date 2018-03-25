@@ -1,6 +1,5 @@
 package com.codegene.femicodes.cscprojectadmin.ui.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,6 +21,7 @@ import com.codegene.femicodes.cscprojectadmin.ui.fragments.ManufacturerFragment;
 import com.codegene.femicodes.cscprojectadmin.ui.fragments.NewsFragment;
 import com.codegene.femicodes.cscprojectadmin.ui.fragments.ProductFragment;
 import com.codegene.femicodes.cscprojectadmin.ui.fragments.ReportFragment;
+import com.codegene.femicodes.cscprojectadmin.ui.fragments.VerifyFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -32,11 +32,6 @@ public class MainActivity extends AppCompatActivity
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener firebaseAuthListener;
 
-
-     public static Intent getStartedIntent(Context context){
-        return new Intent(context, AddManufacturer.class);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +39,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         View hView =  navigationView.getHeaderView(0);
         mUserId = hView.findViewById(R.id.admin_uid);
         mEmail = hView.findViewById(R.id.admin_email);
@@ -133,6 +128,8 @@ public class MainActivity extends AppCompatActivity
 
             fragment = new NewsFragment();
 
+        } else if (id == R.id.nav_verify) {
+            fragment = new VerifyFragment();
         }
 
         //replacing the fragment
@@ -145,7 +142,6 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
-
 
     @Override
     protected void onStart() {

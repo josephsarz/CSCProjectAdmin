@@ -30,8 +30,8 @@ import java.util.Calendar;
 
 public class AddNewsActivity extends AppCompatActivity {
 
-    private ImageButton imageBtn;
     private static final int GALLERY_REQUEST_CODE = 5;
+    private ImageButton imageBtn;
     private Uri uri = null;
     private EditText textTitle;
     private EditText textContent;
@@ -90,7 +90,7 @@ public class AddNewsActivity extends AppCompatActivity {
                             final String PostImage = String.valueOf(downloadUrl);
                             Calendar calendar = Calendar.getInstance();
                             SimpleDateFormat mdformat = new SimpleDateFormat("yyyy / MM / dd ");
-                            String PostDate = "Current Date : " + mdformat.format(calendar.getTime());
+                            String PostDate = mdformat.format(calendar.getTime());
                             String AuthorId = "";
 
 

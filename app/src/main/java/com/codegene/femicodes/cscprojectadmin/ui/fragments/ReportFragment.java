@@ -1,5 +1,6 @@
 package com.codegene.femicodes.cscprojectadmin.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.codegene.femicodes.cscprojectadmin.R;
 import com.codegene.femicodes.cscprojectadmin.models.Report;
+import com.codegene.femicodes.cscprojectadmin.ui.activities.ReportDetailActivity;
 import com.codegene.femicodes.cscprojectadmin.utils.Constants;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -44,7 +46,6 @@ public class ReportFragment extends Fragment {
         getActivity().setTitle("Reports");
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
@@ -57,15 +58,18 @@ public class ReportFragment extends Fragment {
         ) {
             @Override
             protected void populateViewHolder(ReportViewHolder viewHolder, Report model, int position) {
-                final String post_key = getRef(position).getKey();
+                final String report_key = getRef(position).getKey();
 
                 viewHolder.setComplainDetails(model.getComplainDetails());
                 viewHolder.setComplaintName(model.getComplaintName());
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        Toast.makeText(getContext(), report_key, Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getActivity(), ReportDetailActivity.class);
+                        intent.putExtra("reportId", report_key);
+                        startActivity(intent);
 
-                        Toast.makeText(getContext(), post_key, Toast.LENGTH_LONG).show();
 
                     }
                 });

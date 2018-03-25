@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,12 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.codegene.femicodes.cscprojectadmin.ui.activities.AddNewsActivity;
-import com.codegene.femicodes.cscprojectadmin.ui.activities.AddProductActivity;
 import com.codegene.femicodes.cscprojectadmin.R;
 import com.codegene.femicodes.cscprojectadmin.models.Product;
+import com.codegene.femicodes.cscprojectadmin.ui.activities.ProductDetailsActivity;
+import com.codegene.femicodes.cscprojectadmin.utils.Constants;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -28,7 +26,6 @@ public class ProductFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private DatabaseReference mDatabase;
-    final static String REFERENCE_CHILD = "products";
 
     @Nullable
     @Override
@@ -39,19 +36,7 @@ public class ProductFragment extends Fragment {
         recyclerView = view.findViewById(R.id.product_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child(REFERENCE_CHILD);
-
-
-        FloatingActionButton fab =  view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = AddProductActivity.getStartedIntent(getContext());
-                startActivity(intent);
-               // startActivity(new Intent(getContext(), AddProductActivity.class));
-            }
-        });
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(Constants.REFERENCE_CHILD_PRODUCTS);
 
         return view;
     }
@@ -59,9 +44,8 @@ public class ProductFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Products");
+        getActivity().setTitle("Registered Products");
     }
-
 
     @Override
     public void onStart() {
@@ -78,12 +62,16 @@ public class ProductFragment extends Fragment {
                 viewHolder.setProductName(model.getProductName());
                viewHolder.setNafdacNumber(model.getNafdacNumber());
                 viewHolder.setImageUrl(getContext(), model.getImageUrl());
+                viewHolder.setManufacturerName(model.getManufacturerName());
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
-                        Toast.makeText(getContext(), product_key, Toast.LENGTH_LONG).show();
-
+                        Intent intent = new Intent(getActivity(), ProductDetailsActivity.class);
+                        Bundle b = new Bundle();
+                        b.putString("productId", product_key);
+                        intent.putExtras(b);
+                        startActivity(intent);
                     }
                 });
             }
@@ -104,9 +92,14 @@ public class ProductFragment extends Fragment {
             product_name.setText(productName);
         }
 
-        public void setNafdacNumber(String nafdacNumber) {
+        void setNafdacNumber(String nafdacNumber) {
             TextView nafdac_number = mView.findViewById(R.id.product_number_tv);
             nafdac_number.setText(nafdacNumber);
+        }
+
+        void setManufacturerName(String manufacturerName) {
+            TextView manufacturer_Name = mView.findViewById(R.id.product_manufacturer);
+            manufacturer_Name.setText(manufacturerName);
         }
 
 

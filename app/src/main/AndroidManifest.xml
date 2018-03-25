@@ -22,15 +22,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity android:name=".ui.activities.AddManufacturer" />
         <activity
-            android:name=".ui.activities.ManufacturerDetailsActivity"
+            android:name=".ui.activities.EditManufacturerActivity"
             android:label="@string/title_activity_details"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".ui.activities.AddProductActivity" />
-
         <activity android:name=".ui.activities.AddNewsActivity" />
         <activity android:name=".ui.activities.LoginActivity">
             <intent-filter>
@@ -39,6 +36,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activities.ManufacturerDetailsActivity"
+            android:label="@string/title_activity_manufacturer_details"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.activities.ProductDetailsActivity"
+            android:label="@string/title_activity_product_details"
+            android:parentActivityName=".ui.activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.codegene.femicodes.cscprojectadmin.ui.activities.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ui.activities.NewsDetailsActivity"
+            android:label="@string/title_activity_news_details"
+            android:parentActivityName=".ui.activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.codegene.femicodes.cscprojectadmin.ui.activities.MainActivity" />
+        </activity>
+        <activity android:name=".ui.activities.ProduceBatch" />
+        <activity
+            android:name=".ui.activities.ReportDetailActivity"
+            android:label="@string/title_activity_report_detail"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

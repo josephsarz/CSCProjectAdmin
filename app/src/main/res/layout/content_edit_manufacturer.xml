@@ -5,28 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.codegene.femicodes.cscprojectadmin.ui.activities.ManufacturerDetailsActivity"
-    tools:showIn="@layout/details_manufacturer">
+    tools:context="com.codegene.femicodes.cscprojectadmin.ui.activities.EditManufacturerActivity"
+    tools:showIn="@layout/activity_edit_manufacturer">
 <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/product_list_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
     <EditText
-        android:text="none"
-        android:layout_marginTop="10dp"
+        android:id="@+id/man_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/man_name"/>
+        android:layout_marginTop="10dp"
+        android:text="none" />
 
     <Button
         android:id="@+id/updateBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Update"
         android:background="@color/colorPrimary"
+        android:text="Update"
         android:textColor="#fff"
         android:textStyle="bold"/>
 
@@ -35,8 +41,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="delete post"
         android:background="#FFEA0404"
+        android:text="delete post"
         android:textColor="#fff"
         android:textStyle="bold"/>
 

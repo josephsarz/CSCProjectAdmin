@@ -1,98 +1,132 @@
 package com.codegene.femicodes.cscprojectadmin.ui.activities;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.codegene.femicodes.cscprojectadmin.R;
-import com.codegene.femicodes.cscprojectadmin.ui.fragments.ManufacturerFragment;
+import com.codegene.femicodes.cscprojectadmin.models.Product;
+import com.codegene.femicodes.cscprojectadmin.utils.Constants;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class ManufacturerDetailsActivity extends AppCompatActivity {
 
-    private EditText mName;
-    String post_key = null;
+    String manufacturer_key;
+    private RecyclerView mProductRecyclerView;
+    private RecyclerView.Adapter mProductAdapter;
+    private RecyclerView.LayoutManager mProductLayoutManager;
     private DatabaseReference mDatabase;
-    private Button deleteBtn, updateBtn;
-
-
-    public static Intent getStartedIntent(Context context){
-        return new Intent(context, ManufacturerDetailsActivity.class);
-    }
+    private ArrayList resultsProductArrayList = new ArrayList<Product>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.details_manufacturer);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.activity_manufacturer_details);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        //initialize recyclerview and FIrebase objects
+        mProductRecyclerView = findViewById(R.id.productListRecyclerView);
+        mProductRecyclerView.setNestedScrollingEnabled(false);
+        mProductRecyclerView.setHasFixedSize(true);
+        mProductLayoutManager = new LinearLayoutManager(ManufacturerDetailsActivity.this);
+        mProductRecyclerView.setLayoutManager(mProductLayoutManager);
+        mProductAdapter = new ProductAdapter(getDataSetHistory(), ManufacturerDetailsActivity.this);
+        mProductRecyclerView.setAdapter(mProductAdapter);
+
+
+        Intent intent = getIntent();
+
+        if (intent != null) {
+            manufacturer_key = intent.getStringExtra("ManufacturerID");
+        }
+
+        getManufacturerProductsIds();
+
+
+        FloatingActionButton fab = findViewById(R.id.addProductFab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent singleActivity = new Intent(getApplicationContext(), AddProductActivity.class);
+                singleActivity.putExtra("ManufacturerID", manufacturer_key);
+                startActivity(singleActivity);
+
             }
         });
 
-        mName = findViewById(R.id.man_name);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("manufacturers");
-        post_key = getIntent().getExtras().getString("PostID");
-        deleteBtn = (Button) findViewById(R.id.deleteBtn);
-        updateBtn = findViewById(R.id.updateBtn);
+    }
 
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                mDatabase.child(post_key).removeValue();
-
-                Intent mainintent = new Intent(ManufacturerDetailsActivity.this, ManufacturerFragment.class);
-                startActivity(mainintent);
-            }
-        });
-
-        updateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String name = mName.getText().toString().trim();
-                mDatabase.child(post_key).child("name").setValue(name);
-                Intent mainintent = new Intent(ManufacturerDetailsActivity.this, ManufacturerFragment.class);
-                startActivity(mainintent);
-            }
-        });
-
-
-        mDatabase.child(post_key).addValueEventListener(new ValueEventListener() {
+    private void getManufacturerProductsIds() {
+        DatabaseReference mManufacturerDatabaseReference = FirebaseDatabase.getInstance().getReference().child("manufacturers").child(manufacturer_key).child("products");
+        mManufacturerDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String name = (String) dataSnapshot.child("name").getValue();
-                mName.setText(name);
-                Toast.makeText(ManufacturerDetailsActivity.this, name, Toast.LENGTH_LONG).show();
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot product : dataSnapshot.getChildren()) {
+                        FetchProductInformation(product.getKey());
+                    }
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
-
-
     }
 
+    private void FetchProductInformation(String rideKey) {
+
+        DatabaseReference mProductsDatabaseReference = FirebaseDatabase.getInstance().getReference().child(Constants.REFERENCE_CHILD_PRODUCTS).child(rideKey);
+        mProductsDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String productId = dataSnapshot.getKey();
+                    String productName = "";
+                    String imageUrl = "";
+                    String nafdacNumber = "";
+
+                    if (dataSnapshot.child("productName").getValue() != null) {
+                        productName = String.valueOf(dataSnapshot.child("productName").getValue().toString());
+                    }
+
+                    if (dataSnapshot.child("imageUrl").getValue() != null) {
+                        imageUrl = String.valueOf(dataSnapshot.child("imageUrl").getValue().toString());
+                    }
+
+                    if (dataSnapshot.child("nafdacNumber").getValue() != null) {
+                        nafdacNumber = String.valueOf(dataSnapshot.child("nafdacNumber").getValue().toString());
+                    }
+
+
+                    Product obj = new Product(productId, productName, imageUrl, nafdacNumber);
+                    resultsProductArrayList.add(obj);
+                    mProductAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private ArrayList<Product> getDataSetHistory() {
+        return resultsProductArrayList;
+    }
 
 }
-

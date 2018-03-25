@@ -33,6 +33,13 @@ public class Product {
         this.expiringDate = expiringDate;
     }
 
+    public Product(String productId, String productName, String imageUrl, String nafdacNumber) {
+        this.productId = productId;
+        this.productName = productName;
+        this.imageUrl = imageUrl;
+        this.nafdacNumber = nafdacNumber;
+    }
+
     public String getProductId() {
         return productId;
     }

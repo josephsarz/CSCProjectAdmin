@@ -21,6 +21,10 @@ public class CommonUtils {
         return matcher.matches();
     }
 
+    public static int convertToHash(String value) {
+        return value.hashCode();
+    }
+
 
 
 }

@@ -14,9 +14,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.codegene.femicodes.cscprojectadmin.ui.activities.AddNewsActivity;
 import com.codegene.femicodes.cscprojectadmin.R;
 import com.codegene.femicodes.cscprojectadmin.models.Post;
+import com.codegene.femicodes.cscprojectadmin.ui.activities.AddNewsActivity;
+import com.codegene.femicodes.cscprojectadmin.ui.activities.NewsDetailsActivity;
+import com.codegene.femicodes.cscprojectadmin.utils.Constants;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -33,13 +35,13 @@ public class NewsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_news, container, false);
 
         //initialize recyclerview and FIrebase objects
-        recyclerView = (RecyclerView) view.findViewById(R.id.news_recyclerview);
+        recyclerView = view.findViewById(R.id.news_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("news");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(Constants.REFERENCE_CHILD_NEWS);
 
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,10 +75,15 @@ public class NewsFragment extends Fragment {
                 final String post_key = getRef(position).getKey().toString();
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setDesc(model.getContent());
+                viewHolder.setPostDate(model.getDate());
                 viewHolder.setImageUrl(getContext(), model.getImageUrl());
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
+                        Intent intent = new Intent(getActivity(), NewsDetailsActivity.class);
+                        intent.putExtra("postId", post_key);
+                        startActivity(intent);
 
                     }
                 });
@@ -106,6 +113,11 @@ public class NewsFragment extends Fragment {
         public void setImageUrl(Context ctx, String imageUrl) {
             ImageView post_image = mView.findViewById(R.id.post_image);
             Picasso.with(ctx).load(imageUrl).into(post_image);
+        }
+
+        void setPostDate(String postDate) {
+            TextView post_date = mView.findViewById(R.id.post_date_txtview);
+            post_date.setText(postDate);
         }
     }
 }
